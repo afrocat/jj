@@ -7,10 +7,10 @@ export interface Stock {
 
 export interface Transaction {
   id?: number;
-  stockId: number;
-  quantity: number;
-  type: 'ADD' | 'CONSUME' | 'UPDATE';
-  timestamp: string;
+  sku: string;
+  storeId: number;
+  consumedQuantity: number; 
+  createdAt: string;
 }
 
 export interface Product {
