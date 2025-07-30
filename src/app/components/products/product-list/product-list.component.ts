@@ -44,7 +44,7 @@ import { Product } from '../../../../models/stock.model';
             </div>
             <p class="total-quantity">Total Quantity: {{ checkedProduct.totalQuantity || 0 }}</p>
             <p class="brand">Brand: {{ checkedProduct.brand }}</p>
-            <p class="price">Price: ${{ checkedProduct.price }}</p>
+            <p class="price">Price: {{ checkedProduct.price }}</p>
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@ import { Product } from '../../../../models/stock.model';
             <div class="product-content">
               <div class="product-header">
                 <h3>{{ product.name }}</h3>
-                <span class="price">${{ product.price }}</span>
+                <span class="price">{{ product.price }}</span>
               </div>
               <div class="product-meta">
                 <span class="brand">{{ product.brand }}</span>
