@@ -63,32 +63,19 @@ import { map } from 'rxjs/operators'
       </div>
 
       <!-- Transactions Modal -->
-      <div *ngIf="showTransactions && selectedStock" class="modal-overlay" (click)="closeTransactionsModal()">
-        <div class="modal-content large-modal" (click)="$event.stopPropagation()">
-          <div class="modal-header">
-            <h2>Transactions for {{ selectedStock.sku }}</h2>
-            <button class="close-btn" (click)="closeTransactionsModal()">×</button>
-          </div>
-          <div class="transactions-content">
-            <div *ngIf="transactions.length === 0" class="no-data">
-              No transactions found for this stock item.
-            </div>
-            <div *ngIf="transactions.length > 0" class="transactions-list">
-              <div *ngFor="let transaction of transactions" class="transaction-item">
-                <div class="transaction-info">
-                  <span class="transaction-type" [class]="transaction.type.toLowerCase()">
-                    {{ transaction.type }}
-                  </span>
-                  <span class="transaction-quantity">{{ transaction.quantity }}</span>
-                </div>
-                <div class="transaction-date">
-                  {{ transaction.timestamp | date:'medium' }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div *ngIf="transactions.length > 0" class="transactions-list">
+  <div *ngFor="let transaction of transactions" class="transaction-item">
+    <div class="transaction-info">
+      <span class="transaction-type consume">
+        CONSUME 
+      </span>
+      <span class="transaction-quantity">{{ transaction.consumedQuantity }}</span>
+    </div>
+    <div class="transaction-date">
+      {{ transaction.createdAt | date:'medium' }}
+    </div>
+  </div>
+</div>
     </div>
   `,
   styles: [`
