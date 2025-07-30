@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StockService } from '../../../../services/stock.service';
 import { Stock } from '../../../../models/stock.model';
+import { map } from 'rxjs/operators'
 
 @Component({
   selector: 'app-stock-list',
@@ -448,15 +449,28 @@ export class StockListComponent implements OnInit {
     }
   }
 
-  viewTransactions(stock: Stock) {
-    this.selectedStock = stock;
-    this.showTransactions = true;
-    if (stock.id) {
-      this.stockService.getStockTransactions(stock.id).subscribe(transactions => {
-        this.transactions = transactions;
-      });
-    }
+viewTransactions(stock: Stock) {
+  this.selectedStock = stock;
+  this.showTransactions = true;
+  if (stock.id) {
+    this.stockService.getStockTransactions(stock.id).pipe(
+      map(apiTransactions => {
+        return apiTransactions.map(t => {
+          return {
+            stockId: stock.id, 
+            quantity: t.consumedQuantity,
+            timestamp: t.createdAt,     
+            type: 'CONSUME', 
+            id: t.id 
+          } as Transaction; 
+        });
+      })
+    ).subscribe(formattedTransactions => {
+      this.transactions = formattedTransactions;
+      console.log('Formatted transactions:', this.transactions); // Good for debugging
+    });
   }
+}
 
   closeTransactionsModal() {
     this.showTransactions = false;
